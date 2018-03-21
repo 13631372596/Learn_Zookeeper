@@ -1,4 +1,5 @@
 # ignore files
 
 /.idea/
+/target/
 *.iml
