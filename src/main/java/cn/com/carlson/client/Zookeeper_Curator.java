@@ -45,13 +45,18 @@ public class Zookeeper_Curator {
                 cdl.countDown();
             }
         },es//所有异步通知时间都由默认的EventThread处理(复杂处理单元消耗时间长)，可传入一个Executor实例处理较复杂的事件
-        ).forPath(path,"init".getBytes());
+        ).forPath(path,"data".getBytes());
         System.out.println("创建节点");
         Stat stat = new Stat();
-        client.getData().storingStatIn(stat).forPath(path);
+        System.out.println(new String(client.getData().storingStatIn(stat).forPath(path)));//new String(byte[] bytes)
+        Thread.sleep(2000);
+        client.setData().withVersion(-1).forPath(path,"test".getBytes());
+        System.out.println("修改节点");
+        Thread.sleep(2000);
         //client.delete().guaranteed().forPath(path);//guaranteed()只要客户端会话有效，后台持续删直至删除成功
-        client.delete().deletingChildrenIfNeeded().withVersion(stat.getVersion()).forPath(path);
+        client.delete().deletingChildrenIfNeeded().withVersion(-1).forPath(path);
         System.out.println("删除节点");
+        Thread.sleep(2000);
         cdl.await();
         es.shutdown();
     }
