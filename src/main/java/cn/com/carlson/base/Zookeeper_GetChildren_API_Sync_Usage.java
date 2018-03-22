@@ -31,7 +31,7 @@ public class Zookeeper_GetChildren_API_Sync_Usage implements Watcher{
     }
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
-        String path = "/zk-book3";
+        String path = "/zk-book4";
         zk = new ZooKeeper("localhost:2181",5000,new Zookeeper_GetChildren_API_Sync_Usage());
         cdl.await();
         //不能在临时节点下面创建子节点

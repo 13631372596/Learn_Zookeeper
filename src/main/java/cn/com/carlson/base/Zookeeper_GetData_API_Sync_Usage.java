@@ -38,7 +38,6 @@ public class Zookeeper_GetData_API_Sync_Usage implements Watcher{
         zk.create(path,"123".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         System.out.println(zk.getData(path,true,stat));
         zk.create(path+"/c1","".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-        //注册Watcher,一旦有子节点被创建,服务端仅会向客户端发出NodeChildrenChanged通知,不会有节点变化情况。此外触发一次通知后该Watcher失效
         List<String> childrenList = zk.getChildren(path, true);
         System.out.println(childrenList);//数据节点的相对节点路径
         zk.create(path+"/c2","".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
