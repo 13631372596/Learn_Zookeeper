@@ -9,12 +9,12 @@ public class Zookeeper_AuthInfo {
         String path = "/zk_test_auth";
         String path2 = "/zk_test_auth/child";
         ZooKeeper zk = new ZooKeeper("localhost:2181",5000,null);
-        zk.addAuthInfo("digest", "admin:test".getBytes());//admin:test相当于username:password
+        zk.addAuthInfo("digest", "admin".getBytes());//password
         zk.create(path, "data".getBytes(), ZooDefs.Ids.CREATOR_ALL_ACL,//赋予节点创建者所有的权限
                 CreateMode.PERSISTENT);
         //正确权限获取
         ZooKeeper zk2 = new ZooKeeper("localhost:2181",5000,null);
-        zk2.addAuthInfo("digest", "admin:test".getBytes());
+        zk2.addAuthInfo("digest", "admin".getBytes());
         System.out.println(zk2.getData(path, false, null));
         //无权限获取
         ZooKeeper zk3 = new ZooKeeper("localhost:2181",5000,null);
@@ -25,7 +25,7 @@ public class Zookeeper_AuthInfo {
         }
         //错误权限获取
         ZooKeeper zk4 = new ZooKeeper("localhost:2181",5000,null);
-        zk4.addAuthInfo("digest", "admin:test2".getBytes());
+        zk4.addAuthInfo("digest", "test".getBytes());
         try {
             zk4.getData(path, false, null);
         } catch (Exception e) {
