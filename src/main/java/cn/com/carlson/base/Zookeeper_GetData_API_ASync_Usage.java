@@ -39,7 +39,7 @@ public class Zookeeper_GetData_API_ASync_Usage implements Watcher{
     }
 
     public static void main(String[] args) throws Exception {
-        String path = "/zk-book";
+        String path = "/zk-book222";
         zk = new ZooKeeper("localhost:2181", 5000, new Zookeeper_GetData_API_ASync_Usage());
         cdl.countDown();
         zk.create(path, "123".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
@@ -48,7 +48,7 @@ public class Zookeeper_GetData_API_ASync_Usage implements Watcher{
          * zk数据版本从0开始计数，-1仅是标识符表示基于最新版本进行更新
          * 针对数据版本进行更新，可有效避免一些分布式更新的并发问题
          */
-        zk.setData(path, "234".getBytes(), -1);
+        //zk.setData(path, "234".getBytes(), -1);
         Thread.sleep(Integer.MAX_VALUE);
     }
 }
